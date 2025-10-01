@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🚀 Stable Community Quiz</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .quiz-container {
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 15px;
+      width: 500px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #0072ff;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #f0f0f0;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    .option-btn:hover {
+      background: #0072ff;
+      color: #fff;
+    }
+
+    #score {
+      font-size: 18px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #0072ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container" id="quiz-container">
+    <h2>🚀 Stable Community Quiz</h2>
+    <div id="question"></div>
+    <div id="options"></div>
+    <div id="score">Score: 0</div>
+    <button onclick="nextQuestion()">Next</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const quiz = [
+      { q: "Q1: Stable ka primary focus kya hai?", options: ["Gaming", "DeFi Payments", "NFTs", "SocialFi"], answer: 1 },
+      { q: "Q2: Stable ka official website kya hai?", options: ["stable.io", "stable.xyz", "stable.org", "stable.net"], answer: 1 },
+      { q: "Q3: Stable ko kaun support karta hai?", options: ["Coinbase", "Binance", "Bitfinex & Tether (USDT)", "Ripple"], answer: 2 },
+      { q: "Q4: Stable Pay ka main use case kya hai?", options: ["Trading NFTs", "Fast stablecoin payments", "Lending/borrowing", "Gaming"], answer: 1 },
+      { q: "Q5 (Fun): Agar Stable ka token aata hai future me – tumhe sabse zyada kya pasand hoga?", options: ["Governance", "Rewards", "Ecosystem Grants", "Others"], answer: 1 }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function showQuestion() {
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("question").innerText = quiz[current].q;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      quiz[current].options.forEach((opt, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.className = "option-btn";
+        btn.onclick = () => {
+          if(index === quiz[current].answer) {
+            score += 2;
+            alert("✅ Correct! +2 points");
+          } else {
+            alert("❌ Wrong!");
+          }
+          document.getElementById("score").innerText = `Score: ${score}`;
+        };
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function nextQuestion() {
+      current++;
+      if(current < quiz.length) {
+        showQuestion();
+      } else {
+        document.getElementById("quiz-container").innerHTML = `
+          <h2>🎉 Quiz Complete!</h2>
+          <p>Your Total Score: ${score}/10</p>
+          <p>${score === 10 ? "🔥 Perfect! You're a Stable Expert!" : "Thanks for participating!"}</p>
+        `;
+      }
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
+
